@@ -1,4 +1,4 @@
-package com.alx.cinebook
+package com.alx.cinebook.repositories
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

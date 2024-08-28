@@ -1,5 +1,8 @@
-package com.alx.cinebook
+package com.alx.cinebook.controllers
 
+import com.alx.cinebook.services.ClientService
+import com.alx.cinebook.models.ClientDTORequest
+import com.alx.cinebook.models.ClientDTOResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException

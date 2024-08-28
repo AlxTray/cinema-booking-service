@@ -1,4 +1,4 @@
-package com.alx.cinebook
+package com.alx.cinebook.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

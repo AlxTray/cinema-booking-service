@@ -1,5 +1,9 @@
-package com.alx.cinebook
+package com.alx.cinebook.services
 
+import com.alx.cinebook.repositories.ClientEntity
+import com.alx.cinebook.repositories.ClientRepository
+import com.alx.cinebook.models.ClientDTORequest
+import com.alx.cinebook.models.ClientDTOResponse
 import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.getOrNull
 
