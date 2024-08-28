@@ -21,7 +21,7 @@
 
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [ maven nodejs ];
+          packages = with pkgs; [ kotlin maven nodejs ];
         };
       });
     };
