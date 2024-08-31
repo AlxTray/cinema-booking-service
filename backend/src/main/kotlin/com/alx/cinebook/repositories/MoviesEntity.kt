@@ -6,8 +6,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "client")
-data class ClientEntity (
+@Table(name = "movies")
+data class MoviesEntity (
     
     @Id
     @GeneratedValue
