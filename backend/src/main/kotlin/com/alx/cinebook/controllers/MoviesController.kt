@@ -3,7 +3,9 @@ package com.alx.cinebook.controllers
 import com.alx.cinebook.services.MoviesService
 import com.alx.cinebook.models.MoviesDTORequest
 import com.alx.cinebook.models.MoviesDTOResponse
+import org.apache.coyote.Response
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
@@ -13,14 +15,18 @@ import org.springframework.web.server.ResponseStatusException
 class MoviesController(var moviesService: MoviesService) {
 
     @PostMapping("/create")
-    fun createMovie(@RequestBody newClient: MoviesDTORequest): MoviesDTOResponse {
-        return moviesService.createMovie(newClient)
+    fun createMovie(@RequestBody newMovie: MoviesDTORequest): ResponseEntity<MoviesDTOResponse> {
+        val newMovieResponse = moviesService.createMovie(newMovie)
+        return ResponseEntity.status(HttpStatus.CREATED).body(newMovieResponse)
     }
     
     @GetMapping("/list")
-    fun getAllMovies(): List<MoviesDTOResponse> {
-        return moviesService.getAllMovies()
-            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "No movies found")
+    fun getAllMovies(): ResponseEntity<List<MoviesDTOResponse>> {
+        val listMoviesResponse = moviesService.getAllMovies()
+        return if (listMoviesResponse.isNotEmpty())
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        else
+            ResponseEntity.status(HttpStatus.OK).body(listMoviesResponse)
     }
 
     @GetMapping("/{id}")

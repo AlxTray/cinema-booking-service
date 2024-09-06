@@ -20,10 +20,9 @@ class MoviesService(var moviesRepository: MoviesRepository) {
         return MoviesDTOResponse(id = save.id!!, name = save.name)
     }
     
-    fun getAllMovies(): List<MoviesDTOResponse>? {
+    fun getAllMovies(): List<MoviesDTOResponse> {
         return moviesRepository.findAll()
             .map { MoviesDTOResponse(id = it.id!!, name = it.name) }
-            .ifEmpty { null }
     }
 
     fun getMovie(id: Long): MoviesDTOResponse? {
