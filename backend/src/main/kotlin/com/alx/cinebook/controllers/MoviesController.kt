@@ -27,8 +27,8 @@ class MoviesController(var moviesService: MoviesService) {
     }
 
     @GetMapping("/{id}")
-    fun getMovie(@PathVariable id: Long): MoviesDTOResponse {
-        return moviesService.getMovie(id)
+    fun getMovie(@PathVariable id: Long): ResponseEntity<MoviesDTOResponse> {
+        return ResponseEntity.ok(moviesService.getMovie(id))
     }
 
     @DeleteMapping("/{id}")
@@ -37,8 +37,8 @@ class MoviesController(var moviesService: MoviesService) {
     }
 
     @PutMapping("/{id}")
-    fun updateMovie(@PathVariable id: Long, @RequestBody updatedTask: MoviesDTORequest): MoviesDTOResponse {
-        return moviesService.updateMovie(id, updatedTask)
+    fun updateMovie(@PathVariable id: Long, @RequestBody updatedTask: MoviesDTORequest): ResponseEntity<MoviesDTOResponse> {
+        return ResponseEntity.ok(moviesService.updateMovie(id, updatedTask))
     }
     
 }
