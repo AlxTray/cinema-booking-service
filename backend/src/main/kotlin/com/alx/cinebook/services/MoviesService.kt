@@ -41,16 +41,13 @@ class MoviesService(var moviesRepository: MoviesRepository) {
         moviesRepository.deleteById(id)
     }
 
-    fun updateMovie(id: Long, updatedMovie: MoviesDTORequest): MoviesDTOResponse? {
-        return moviesRepository.findById(id).map {
-            val save = moviesRepository.save(
-                MoviesEntity(
-                    id = it.id,
-                    name = updatedMovie.name,
-                )
-            )
-            MoviesDTOResponse(id = save.id!!, name = save.name)
-        }.orElseGet(null)
+    fun updateMovie(id: Long, updatedMovie: MoviesDTORequest): MoviesDTOResponse {
+        return moviesRepository.findByIdOrNull(id)?.let { 
+            foundMovie -> val updatedMovieEntity = foundMovie.copy(name = updatedMovie.name)
+            val savedMovie = moviesRepository.save(updatedMovieEntity)
+            MoviesDTOResponse(id = savedMovie.id!!, name = savedMovie.name)
+        }
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with id $id not found")
     }
     
 }

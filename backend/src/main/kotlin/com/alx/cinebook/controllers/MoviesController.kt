@@ -39,7 +39,6 @@ class MoviesController(var moviesService: MoviesService) {
     @PutMapping("/{id}")
     fun updateMovie(@PathVariable id: Long, @RequestBody updatedTask: MoviesDTORequest): MoviesDTOResponse {
         return moviesService.updateMovie(id, updatedTask)
-            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found")
     }
     
 }
