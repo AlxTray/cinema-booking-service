@@ -16,8 +16,9 @@ class MoviesController(var moviesService: MoviesService) {
 
     @PostMapping("/create")
     fun createMovie(@RequestBody newMovie: MoviesDTORequest): ResponseEntity<MoviesDTOResponse> {
-        val newMovieResponse = moviesService.createMovie(newMovie)
-        return ResponseEntity.status(HttpStatus.CREATED).body(newMovieResponse)
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(moviesService.createMovie(newMovie))
     }
     
     @GetMapping("/list")
