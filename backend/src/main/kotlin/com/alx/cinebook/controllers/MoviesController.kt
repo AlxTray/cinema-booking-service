@@ -22,17 +22,12 @@ class MoviesController(var moviesService: MoviesService) {
     
     @GetMapping("/list")
     fun getAllMovies(): ResponseEntity<List<MoviesDTOResponse>> {
-        val listMoviesResponse = moviesService.getAllMovies()
-        return if (listMoviesResponse.isNotEmpty())
-            ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-        else
-            ResponseEntity.status(HttpStatus.OK).body(listMoviesResponse)
+        return ResponseEntity.ok(moviesService.getAllMovies())
     }
 
     @GetMapping("/{id}")
-    fun getMovie(@PathVariable id: Long): MoviesDTOResponse {
+    fun getMovie(@PathVariable id: Long): MoviesDTOResponse? {
         return moviesService.getMovie(id)
-            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found")
     }
 
     @DeleteMapping("/{id}")

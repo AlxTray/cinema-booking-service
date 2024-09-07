@@ -4,7 +4,10 @@ import com.alx.cinebook.repositories.MoviesEntity
 import com.alx.cinebook.repositories.MoviesRepository
 import com.alx.cinebook.models.MoviesDTORequest
 import com.alx.cinebook.models.MoviesDTOResponse
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
 import kotlin.jvm.optionals.getOrNull
 
 @Service
@@ -23,15 +26,18 @@ class MoviesService(var moviesRepository: MoviesRepository) {
     fun getAllMovies(): List<MoviesDTOResponse> {
         return moviesRepository.findAll()
             .map { MoviesDTOResponse(id = it.id!!, name = it.name) }
+            .ifEmpty { throw ResponseStatusException(HttpStatus.NOT_FOUND, "No movies found") }
     }
 
     fun getMovie(id: Long): MoviesDTOResponse? {
-        return moviesRepository.findById(id)
-            .map { MoviesDTOResponse(id = it.id!!, name = it.name) }
-            .getOrNull()
+        val movie = moviesRepository.findByIdOrNull(id)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with id $id not found")
+        
+        return MoviesDTOResponse(id = movie.id!!, name = movie.name)
     }
 
     fun deleteMovie(id: Long) {
+        // Throws IllegalArgumentException if ID is not found, so no logic needed
         moviesRepository.deleteById(id)
     }
 
