@@ -26,7 +26,7 @@ class MoviesController(var moviesService: MoviesService) {
     }
 
     @GetMapping("/{id}")
-    fun getMovie(@PathVariable id: Long): MoviesDTOResponse? {
+    fun getMovie(@PathVariable id: Long): MoviesDTOResponse {
         return moviesService.getMovie(id)
     }
 

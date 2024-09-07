@@ -29,7 +29,7 @@ class MoviesService(var moviesRepository: MoviesRepository) {
             .ifEmpty { throw ResponseStatusException(HttpStatus.NOT_FOUND, "No movies found") }
     }
 
-    fun getMovie(id: Long): MoviesDTOResponse? {
+    fun getMovie(id: Long): MoviesDTOResponse {
         val movie = moviesRepository.findByIdOrNull(id)
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with id $id not found")
         
